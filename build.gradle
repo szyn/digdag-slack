@@ -1,0 +1,68 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'idea'
+
+group = 'io.digdag.plugin'
+version = '0.1.0'
+
+def digdagVersion = '0.9.7'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven {
+        url  "http://dl.bintray.com/digdag/maven"
+    }
+}
+
+configurations {
+    provided
+}
+
+dependencies {
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+    compile 'org.yaml:snakeyaml:1.18'
+    compile 'org.json:json:20160810'
+    provided 'io.digdag:digdag-spi:' + digdagVersion
+    provided 'io.digdag:digdag-plugin-utils:' + digdagVersion  // this should be 'compile' instead of 'provided' once digdag 0.8.18 is released to one of the built-in repositories (maven central or jcenter)
+}
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+        test.compileClasspath += configurations.provided
+        test.runtimeClasspath += configurations.provided
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "$buildDir/repo"
+        }
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+javadoc {
+    options {
+        locale = 'en_US'
+        encoding = 'UTF-8'
+    }
+}
+
