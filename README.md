@@ -81,4 +81,4 @@ Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-sl
 
 ## License
 
-[MIT](http://b4b4r07.mit-license.org)
+[Apache License 2.0](LICENSE)
