@@ -6,10 +6,11 @@ digdag-slack is a plugin sending messages to slack.
 It can use yaml templates for building messages.
 
 ***DEMO:***  
-e.g.
-[![sample-good.png](sample/imgs/sample-good.png)](sample/imgs/sample-good.png)
 
-[![sample-danger.png](sample/imgs/sample-danger.png)](sample/imgs/sample-danger.png)
+|SUCCESS|FAILED|
+|---|---|
+|[![sample-good.png](sample/imgs/sample-good.png)](sample/imgs/sample-good.png)|[![sample-danger.png](sample/imgs/sample-danger.png)](sample/imgs/sample-danger.png)|
+
 
 ## Features
 
