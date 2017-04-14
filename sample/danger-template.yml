@@ -10,6 +10,9 @@ attachments:
   - pretext
   - fields
   fields:
+  - title: Task Name
+    value: "${task_name}"
+    short: false
   - title: Error Message
     value: "`${error.message}`"
     short: false
