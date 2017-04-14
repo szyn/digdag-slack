@@ -7,7 +7,7 @@ _export:
       # - io.digdag.plugin:digdag-slack:0.1.0
       - com.github.szyn:digdag-slack:0.1.0
   # Set Reqired params
-  webhook_url: https://hooks.slack.com/services/${YOUR-WEBHOOK-URL}
+  webhook_url: https://hooks.slack.com/services/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
   # Set Option params
   workflow_name: slack
   ENV: develop
@@ -25,4 +25,3 @@ _export:
   sh>: exit 1
   _error:
     slack>: danger-template.yml
-    error_message: ${error.message}

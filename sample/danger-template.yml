@@ -11,7 +11,7 @@ attachments:
   - fields
   fields:
   - title: Error Message
-    value: "`${error_message}`"
+    value: "`${error.message}`"
     short: false
   - title: Session Date
     value: "${session_date}"
