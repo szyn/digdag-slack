@@ -22,6 +22,10 @@ It can use yaml templates for building messages.
 
 - [Digdag](https://www.digdag.io/)
 
+
+[Note]
+If you want to use `task_name` variable, you must use digdag v0.9.9 and up.
+
 ## Usage
 Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-slack/tree/master/sample) directory.
 
@@ -33,7 +37,7 @@ Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-sl
       repositories:
         - https://jitpack.io
       dependencies:
-        - com.github.szyn:digdag-slack:0.1.0
+        - com.github.szyn:digdag-slack:0.1.1
     # Set Reqired params
     webhook_url: https://hooks.slack.com/services/XXX/XXX/XXX
     # Set Option params
@@ -62,6 +66,9 @@ Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-sl
     - pretext
     - fields
     fields:
+    - title: Task Name
+      value: "${task_name}"
+      short: false
     - title: Session Date
       value: "${session_date}"
       short: true
