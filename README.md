@@ -14,7 +14,7 @@ It can use yaml templates for building messages.
 
 ## Features
 
-- Can use the `slack>:` opetaror
+- Can use the `slack>` opetaror
 - Easy to use
 - Flexible templates
 
