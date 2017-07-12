@@ -55,9 +55,9 @@ Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-sl
 2. Create templates for slack's payload (e.g. good-template.yml)
 
   ```yaml
-  ---
   username: Digdag
   icon_emoji: ':blush:'
+  # channel: '#general' ## if you need to send message to specific channel
   attachments:
   - fallback: '[SUCCESS] ${workflow_name} workflow'
     color: "good"
@@ -74,7 +74,7 @@ Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-sl
       value: "${session_date}"
       short: true
     - title: Environment
-      value: "${ENV}" # You can use environment values
+      value: "${ENV}" # You can use exported environment values
       short: true
   ```
 
