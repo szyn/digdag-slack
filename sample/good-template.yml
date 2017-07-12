@@ -1,6 +1,7 @@
 ---
 username: Digdag
 icon_emoji: ':blush:'
+# channel: '#general' ## if you need to send message to specific channel
 attachments:
 - fallback: '[SUCCESS] ${workflow_name} workflow'
   color: "good"
