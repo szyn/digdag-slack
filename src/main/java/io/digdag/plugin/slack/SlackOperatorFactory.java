@@ -59,6 +59,12 @@ public class SlackOperatorFactory
                         .field("payload", payload).asString();
             } catch (UnirestException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    Unirest.shutdown();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             return TaskResult.empty(request);
