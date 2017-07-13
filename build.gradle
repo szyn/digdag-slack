@@ -22,7 +22,7 @@ configurations {
 }
 
 dependencies {
-    compile 'com.mashape.unirest:unirest-java:1.4.9'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'org.yaml:snakeyaml:1.18'
     compile 'org.json:json:20160810'
     provided 'io.digdag:digdag-spi:' + digdagVersion
