@@ -1,9 +1,5 @@
 package io.digdag.plugin.slack;
 
-import com.google.common.base.Throwables;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import io.digdag.client.config.Config;
 import io.digdag.spi.Operator;
 import io.digdag.spi.OperatorContext;
@@ -11,6 +7,9 @@ import io.digdag.spi.OperatorFactory;
 import io.digdag.spi.TaskResult;
 import io.digdag.spi.TemplateEngine;
 import io.digdag.util.BaseOperator;
+import okhttp3.*;
+
+import java.io.IOException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -18,6 +17,8 @@ public class SlackOperatorFactory
         implements OperatorFactory
 {
     private final TemplateEngine templateEngine;
+
+    private static final OkHttpClient singletonInstance = new OkHttpClient();
 
     public SlackOperatorFactory(TemplateEngine templateEngine)
     {
@@ -53,15 +54,33 @@ public class SlackOperatorFactory
             String url = params.get("webhook_url", String.class);
             String payload = SlackPayload.convertToJson(message);
 
-            try {
-                HttpResponse<String> res = Unirest.post(url)
-                        .header("Content-Type", "application/x-www-form-urlencoded")
-                        .field("payload", payload).asString();
-            } catch (UnirestException e) {
-                e.printStackTrace();
-            }
+            this.postToSlack(url, payload);
 
             return TaskResult.empty(request);
+        }
+
+        private void postToSlack(String url, String payload)
+        {
+            RequestBody body = new FormBody.Builder()
+                .add("payload", payload)
+                .build();
+
+            Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+            Call call = singletonInstance.newCall(request);
+
+            try (Response response = call.execute()) {
+                if(!response.isSuccessful()) {
+                    throw new IOException("posting to slack failed");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                singletonInstance.connectionPool().evictAll();
+            }
         }
     }
 }
