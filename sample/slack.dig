@@ -4,8 +4,8 @@ _export:
       # - file://${repos}
       - https://jitpack.io
     dependencies:
-      # - io.digdag.plugin:digdag-slack:0.1.1
-      - com.github.szyn:digdag-slack:0.1.1
+      # - io.digdag.plugin:digdag-slack:0.1.2
+      - com.github.szyn:digdag-slack:0.1.2
   # Set Reqired params
   webhook_url: https://hooks.slack.com/services/XXXX/XXXXX/XXXXXXX
   # Set Option params
