@@ -4,9 +4,9 @@ apply plugin: 'maven-publish'
 apply plugin: 'idea'
 
 group = 'io.digdag.plugin'
-version = '0.1.1'
+version = '0.1.2'
 
-def digdagVersion = '0.9.9'
+def digdagVersion = '0.9.12'
 
 repositories {
     mavenLocal()

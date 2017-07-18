@@ -38,7 +38,7 @@ Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-sl
       repositories:
         - https://jitpack.io
       dependencies:
-        - com.github.szyn:digdag-slack:0.1.1
+        - com.github.szyn:digdag-slack:0.1.2
     # Set Reqired params
     webhook_url: https://hooks.slack.com/services/XXX/XXX/XXX
     # Set Option params
