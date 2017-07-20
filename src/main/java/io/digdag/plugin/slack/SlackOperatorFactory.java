@@ -62,23 +62,25 @@ public class SlackOperatorFactory
         private void postToSlack(String url, String payload)
         {
             RequestBody body = new FormBody.Builder()
-                .add("payload", payload)
-                .build();
+                    .add("payload", payload)
+                    .build();
 
             Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
+                    .url(url)
+                    .post(body)
+                    .build();
 
             Call call = singletonInstance.newCall(request);
 
             try (Response response = call.execute()) {
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     throw new IOException("posting to slack failed");
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
-            } finally {
+            }
+            finally {
                 singletonInstance.connectionPool().evictAll();
             }
         }
