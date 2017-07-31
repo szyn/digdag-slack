@@ -1,18 +1,32 @@
 package io.digdag.plugin.slack;
 
-import org.json.JSONObject;
-import org.yaml.snakeyaml.Yaml;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import java.util.Map;
+import java.io.IOException;
 
-public class SlackPayload
+class SlackPayload
 {
-    public static String convertToJson(String yamlString)
+    static String convertToJson(String yaml)
     {
-        Yaml yaml = new Yaml();
-        Map<String, Object> map = (Map<String, Object>) yaml.load(yamlString);
+        ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
+        Object obj = null;
+        try {
+            obj = yamlReader.readValue(yaml, Object.class);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        JSONObject jsonObject = new JSONObject(map);
-        return jsonObject.toString();
+        String result = null;
+        ObjectMapper jsonWriter = new ObjectMapper();
+        try {
+            result = jsonWriter.writeValueAsString(obj);
+        }
+        catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
