@@ -7,7 +7,12 @@ import io.digdag.spi.OperatorFactory;
 import io.digdag.spi.TaskResult;
 import io.digdag.spi.TemplateEngine;
 import io.digdag.util.BaseOperator;
-import okhttp3.*;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import java.io.IOException;
 
