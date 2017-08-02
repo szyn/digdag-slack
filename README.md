@@ -22,10 +22,11 @@ It can use yaml templates for building messages.
 ## Requirement
 
 - [Digdag](https://www.digdag.io/)
+- Slack
+  - Webhook URL [(Incoming WebHooks)](https://my.slack.com/apps/A0F7XDUAZ-incoming-webhooks)
 
-
-[Note]
-If you want to use `task_name` variable, you must use digdag v0.9.9 and up.
+**[Note]**  
+If you want to use `${task_name}`, you must digdag v0.9.9 and up.
 
 ## Usage
 Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-slack/tree/master/sample) directory.
