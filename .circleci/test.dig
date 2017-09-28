@@ -18,8 +18,6 @@ _export:
   echo>: "Next will be failed..."
 
 +step2-2:
-  sh>: |
-    set +e
-    exit 1
+  fail>: An error has occured!
   _error:
     slack>: templates/danger.yml
