@@ -11,13 +11,14 @@ _export:
 +sucess:
   slack>: templates/good.yml
 
-+fail:
-  echo>: "Next will be failed..."
-
-+step2-2:
-  fail>: An error has occured!
-  _error:
-    slack>: templates/danger.yml
-
-+finish:
-  echo>: "Finished!"
+# TODO Add some patterns
+#+fail:
+#  echo>: "Next will be failed..."
+#
+#+step2-2:
+#  fail>: An error has occured!
+#  _error:
+#    slack>: templates/danger.yml
+#
+#+finish:
+#  echo>: "Finished!"
