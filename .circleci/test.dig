@@ -8,16 +8,16 @@ _export:
   workflow_name: slack
   ENV: test
 
-+step1-1:
-  echo>: "Next will be success!"
-
-+step1-2:
++sucess:
   slack>: templates/good.yml
 
-+step2-1:
++fail:
   echo>: "Next will be failed..."
 
 +step2-2:
   fail>: An error has occured!
   _error:
     slack>: templates/danger.yml
+
++finish:
+  echo>: "Finished!"
