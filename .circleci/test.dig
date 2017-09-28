@@ -21,6 +21,5 @@ _export:
   sh>: |
     set +e
     exit 1
-    set -e
   _error:
     slack>: templates/danger.yml
