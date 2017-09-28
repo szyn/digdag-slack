@@ -22,6 +22,6 @@ jobs:
           command: |
             cd .circleci
             rm -rf .digdag/plugins
-            digdag run -a test.dig -p repos=${PWD}/../build/repo -p token=${TOKEN} -p version = ${version}
+            digdag run -a test.dig -p repos=${PWD}/../build/repo -p token=${TOKEN} -p version=${version}
           environment:
             version: 0.1.3
