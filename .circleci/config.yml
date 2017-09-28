@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/workspace
+    docker:
+      - image: openjdk:8u141-jdk
+        environment:
+         TERM: dumb
+
+    steps:
+      - checkout
+      - run: ./gradlew clean && ./gradlew publish
+
+      - run:
+          name: Install digdag
+          command: |
+            curl -o /bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-latest"
+            chmod +x /bin/digdag
+
+      - run:
+          name: Testing post to slack
+          command: |
+            cd .circleci
+            rm -rf .digdag/plugins
+            digdag run -a test.dig -p repos=${PWD}/../build/repo -p token=${token}
+          environment:
+            token: T0UNJ3KV2/B79FBRGN4/oB1u6ATsrqdCUlD8jVDp8uAt
