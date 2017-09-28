@@ -1,6 +1,7 @@
 # digdag-slack
 [![](https://jitpack.io/v/szyn/digdag-slack.svg?style=flat-square)](https://jitpack.io/#szyn/digdag-slack)
 [![](https://jitpack.io/v/szyn/digdag-slack/month.svg?style=flat-square)](https://jitpack.io/#szyn/digdag-slack)
+[![Circle CI](https://img.shields.io/circleci/project/github/szyn/digdag-slack.svg?style=flat-square)](https://circleci.com/gh/szyn/digdag-slack)
 
 ## Description
 digdag-slack is a plugin sending messages to slack.  

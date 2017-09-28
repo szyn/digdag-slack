@@ -1,0 +1,24 @@
+_export:
+  plugin:
+    repositories:
+       - file://${repos}
+    dependencies:
+       - io.digdag.plugin:digdag-slack:${version}-SNAPSHOT
+  webhook_url: https://hooks.slack.com/services/${token}
+  workflow_name: slack
+  ENV: test
+
++sucess:
+  slack>: templates/good.yml
+
+# TODO Add some patterns
+#+fail:
+#  echo>: "Next will be failed..."
+#
+#+step2-2:
+#  fail>: An error has occured!
+#  _error:
+#    slack>: templates/danger.yml
+#
+#+finish:
+#  echo>: "Finished!"
