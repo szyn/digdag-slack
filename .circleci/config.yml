@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/workspace
+    working_directory: ~/digdag-slack
     docker:
       - image: openjdk:8u141-jdk
         environment:
