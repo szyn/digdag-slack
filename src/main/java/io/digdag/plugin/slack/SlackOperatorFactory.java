@@ -56,10 +56,10 @@ public class SlackOperatorFactory
             Config params = request.getConfig().mergeDefault(
                     request.getConfig().getNestedOrGetEmpty("slack"));
 
-            String webhook_url = params.get("webhook_url", String.class);
             if (!params.has("webhook_url")) {
                 throw new ConfigException("'webhook_url' is required");
             }
+            String webhook_url = params.get("webhook_url", String.class);
 
             String message = workspace.templateCommand(templateEngine, params, "message", UTF_8);
             String payload = SlackPayload.convertToJson(message);
