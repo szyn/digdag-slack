@@ -23,7 +23,7 @@ configurations {
 
 dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
-    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.1'
+    provided 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.1'
     provided 'io.digdag:digdag-spi:' + digdagVersion
     provided 'io.digdag:digdag-plugin-utils:' + digdagVersion  // this should be 'compile' instead of 'provided' once digdag 0.8.18 is released to one of the built-in repositories (maven central or jcenter)
 }
