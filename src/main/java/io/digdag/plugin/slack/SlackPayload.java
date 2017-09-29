@@ -8,12 +8,13 @@ import java.io.IOException;
 
 class SlackPayload
 {
-    static String convertToJson(String yaml)
+    static String convertToJson(String yamlString)
     {
         ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
+
         Object obj = null;
         try {
-            obj = yamlReader.readValue(yaml, Object.class);
+            obj = yamlReader.readValue(yamlString, Object.class);
         }
         catch (IOException e) {
             e.printStackTrace();
