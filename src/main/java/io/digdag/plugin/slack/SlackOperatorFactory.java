@@ -1,6 +1,7 @@
 package io.digdag.plugin.slack;
 
 import io.digdag.client.config.Config;
+import io.digdag.client.config.ConfigException;
 import io.digdag.spi.Operator;
 import io.digdag.spi.OperatorContext;
 import io.digdag.spi.OperatorFactory;
@@ -55,11 +56,15 @@ public class SlackOperatorFactory
             Config params = request.getConfig().mergeDefault(
                     request.getConfig().getNestedOrGetEmpty("slack"));
 
+            if (!params.has("webhook_url")) {
+                throw new ConfigException("'webhook_url' is required");
+            }
+            String webhook_url = params.get("webhook_url", String.class);
+
             String message = workspace.templateCommand(templateEngine, params, "message", UTF_8);
-            String url = params.get("webhook_url", String.class);
             String payload = SlackPayload.convertToJson(message);
 
-            this.postToSlack(url, payload);
+            this.postToSlack(webhook_url, payload);
 
             return TaskResult.empty(request);
         }
