@@ -3,7 +3,7 @@ _export:
     repositories:
        - file://${repos}
     dependencies:
-       - io.digdag.plugin:digdag-slack:${version}-SNAPSHOT
+       - io.digdag.plugin:digdag-slack:${version}
   webhook_url: https://hooks.slack.com/services/${token}
   workflow_name: slack
   ENV: test
