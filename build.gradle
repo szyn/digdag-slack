@@ -6,7 +6,7 @@ apply plugin: 'idea'
 group = 'io.digdag.plugin'
 version = '0.1.3-SNAPSHOT'
 
-def digdagVersion = '0.9.12'
+def digdagVersion = '0.9.17'
 
 repositories {
     mavenLocal()
