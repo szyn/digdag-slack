@@ -8,6 +8,7 @@ import io.digdag.spi.OperatorFactory;
 import io.digdag.spi.TaskResult;
 import io.digdag.spi.TemplateEngine;
 import io.digdag.util.BaseOperator;
+import io.digdag.util.UserSecretTemplate;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -59,7 +60,8 @@ public class SlackOperatorFactory
             if (!params.has("webhook_url")) {
                 throw new ConfigException("'webhook_url' is required");
             }
-            String webhook_url = params.get("webhook_url", String.class);
+            String webhook_url = UserSecretTemplate.of(params.get("webhook_url", String.class))
+                    .format(context.getSecrets());
 
             String message = workspace.templateCommand(templateEngine, params, "message", UTF_8);
             String payload = SlackPayload.convertToJson(message);
