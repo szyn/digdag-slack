@@ -1,6 +1,10 @@
 ## Change Log
 
-### 0.1.3 (2017/10/02 15:43 +00:00)
+### 0.1.4 (2017/10/12 15:16 +00:00)
+- [#12](https://github.com/szyn/digdag-slack/pull/12) Make secrets available on webhook param (#12) (@mia-0032)
+- [#11](https://github.com/szyn/digdag-slack/pull/11) Release 0.1.3 (#11) (@szyn)
+
+### 0.1.3 (2017/10/02 15:47 +00:00)
 - [#10](https://github.com/szyn/digdag-slack/pull/10) Bump digdagVersion to 0.9.17 (#10) (@szyn)
 - [#9](https://github.com/szyn/digdag-slack/pull/9) Using jackson dataformat yaml (#9) (@szyn)
 - [#8](https://github.com/szyn/digdag-slack/pull/8) Add params validation (#8) (@szyn)
