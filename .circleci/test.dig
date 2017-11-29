@@ -8,7 +8,7 @@ _export:
   workflow_name: slack
   ENV: test
 
-+sucess:
++success:
   slack>: templates/good.yml
 
 # TODO Add some patterns
