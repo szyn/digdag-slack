@@ -1,0 +1,5 @@
+_export:
+  !include : params/common.dig
+
++task:
+  slack>: templates/valid.yml
