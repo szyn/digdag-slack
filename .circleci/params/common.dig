@@ -1,0 +1,7 @@
+plugin:
+  repositories:
+    - file://${repos}
+  dependencies:
+    - io.digdag.plugin:digdag-slack:${version}
+workflow_name: slack
+ENV: test

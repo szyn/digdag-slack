@@ -1,0 +1,6 @@
+_export:
+  !include : params/common.dig
+  webhook_url: https://hooks.slack.com/services/${token}
+
++task:
+  slack>: templates/valid.yml
