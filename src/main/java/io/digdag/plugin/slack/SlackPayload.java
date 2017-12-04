@@ -10,10 +10,10 @@ import java.io.IOException;
 
 class SlackPayload
 {
+    private static ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
     static String convertToJson(String yamlString)
     {
         validate(yamlString);
-        ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
 
         Object obj = null;
         try {
@@ -35,15 +35,14 @@ class SlackPayload
     }
     private static void validate (String yamlString)
     {
+        JsonNode root = null;
         try {
-            ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
-            JsonNode root = yamlReader.readTree(yamlString);
-            if (!root.has("text") && !root.has("attachments")) {
-                throw new ConfigException("'text' or 'attachments' is required for template for slack's payload");
-            }
-        }
-        catch (IOException e) {
+            root = yamlReader.readTree(yamlString);
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (!root.has("text") && !root.has("attachments")) {
+            throw new ConfigException("'text' or 'attachments' is required for template for slack's payload");
         }
     }
 }
