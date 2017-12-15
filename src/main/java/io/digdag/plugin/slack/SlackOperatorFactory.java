@@ -86,7 +86,8 @@ public class SlackOperatorFactory
 
             try (Response response = call.execute()) {
                 if (!response.isSuccessful()) {
-                    throw new IOException("posting to slack failed");
+                    String message = "status: " + response.code() + ", message: " + response.body().string();
+                    throw new IOException(message);
                 }
             }
             catch (IOException e) {
