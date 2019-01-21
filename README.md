@@ -4,10 +4,10 @@
 [![Circle CI](https://img.shields.io/circleci/project/github/szyn/digdag-slack.svg?style=flat-square)](https://circleci.com/gh/szyn/digdag-slack)
 
 ## Description
-digdag-slack is a plugin sending messages to slack.  
+digdag-slack is a plugin sending messages to slack.
 It can use yaml templates for building messages.
 
-***DEMO:***  
+***DEMO:***
 
 |SUCCESS|FAILED|
 |---|---|
@@ -26,7 +26,7 @@ It can use yaml templates for building messages.
 - Slack
   - Webhook URL [(Incoming WebHooks)](https://my.slack.com/apps/A0F7XDUAZ-incoming-webhooks)
 
-**[Note]**  
+**[Note]**
 If you want to use `${task_name}`, you must digdag v0.9.9 and up.
 
 ## Usage
@@ -83,6 +83,17 @@ Also, you can see expamle workflow at [sample](https://github.com/szyn/digdag-sl
 3. Runs workflow
   ```console
   $ digdag run -a slack.dig
+  ```
+
+## Secrets
+
+* **slack.webhook_url**: The slack incoming webhook url
+
+  ```yaml
+  _export:
+    ...
+    # Set Reqired params
+    webhook_url: ${secret:slack.webhook_url}
   ```
 
 ## Author
