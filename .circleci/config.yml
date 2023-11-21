@@ -1,9 +1,9 @@
-version: 2
+version: 2.1
 jobs:
   build:
     working_directory: ~/digdag-slack
     docker:
-      - image: openjdk:8u141-jdk
+      - image: cimg/openjdk:8.0.402
         environment:
          TERM: dumb
 
@@ -14,8 +14,8 @@ jobs:
       - run:
           name: Install digdag
           command: |
-            curl -o /bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-latest"
-            chmod +x /bin/digdag
+            sudo curl -o /bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-latest"
+            sudo chmod +x /bin/digdag
 
       - run:
           name: Testing post to slack
