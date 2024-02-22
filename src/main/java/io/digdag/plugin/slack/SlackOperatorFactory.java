@@ -1,5 +1,6 @@
 package io.digdag.plugin.slack;
 
+import org.apache.http.HttpStatus;
 import io.digdag.client.config.Config;
 import io.digdag.client.config.ConfigException;
 import io.digdag.spi.Operator;
@@ -11,12 +12,14 @@ import io.digdag.util.BaseOperator;
 import io.digdag.util.UserSecretTemplate;
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -25,7 +28,9 @@ public class SlackOperatorFactory
 {
     private final TemplateEngine templateEngine;
 
-    private static final OkHttpClient singletonInstance = new OkHttpClient();
+    private static final OkHttpClient singletonInstance = new OkHttpClient.Builder()
+        .addInterceptor(new RetryInterceptor())
+        .build();
 
     public SlackOperatorFactory(TemplateEngine templateEngine)
     {
@@ -91,11 +96,52 @@ public class SlackOperatorFactory
                 }
             }
             catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Failed to send to Slack. " + e.getMessage(), e);
             }
             finally {
                 singletonInstance.connectionPool().evictAll();
             }
         }
     }
+
+    static class RetryInterceptor implements Interceptor
+    {
+        private static final int MAX_RETRY_COUNT = 5;
+        private static final int SC_SLACK_RATE_LIMIT_OVER = 429;
+        private static final Integer[] retryHttpStatus = {
+            SC_SLACK_RATE_LIMIT_OVER,
+            HttpStatus.SC_INTERNAL_SERVER_ERROR,
+            HttpStatus.SC_BAD_GATEWAY,
+            HttpStatus.SC_SERVICE_UNAVAILABLE
+        };
+
+        @Override
+        public Response intercept(Chain chain) throws IOException
+        {
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            int retryCount = 0;
+            while (!response.isSuccessful() && retryCount < MAX_RETRY_COUNT && Arrays.asList(retryHttpStatus).contains(response.code())) {
+                retryCount++;
+    
+                response.close();
+                try {
+                    Thread.sleep(getWaitTimeExponential(retryCount));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                // retry request
+                response = chain.proceed(request);
+            }
+            return response;
+        }
+
+        public static long getWaitTimeExponential(int retryCount)
+        {
+            final long initialDelay = 1000L; // 1 second
+            long waitTime = ((long) Math.pow(2, retryCount) * initialDelay);
+            return waitTime;
+        }
+    }
+
 }
