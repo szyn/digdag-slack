@@ -3,8 +3,4 @@ _export:
   webhook_url: https://hooks.slack.com/services/${token}
 
 +task:
-  _retry:
-    limit: 3
-    interval: 1
-    interval_type: exponential
   slack>: templates/valid.yml

@@ -13,16 +13,13 @@ import io.digdag.util.UserSecretTemplate;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -122,13 +119,10 @@ public class SlackOperatorFactory
         public Response intercept(Chain chain) throws IOException
         {
             Request request = chain.request();
-            // Response response = chain.proceed(request);
-            Response response = new Response.Builder().code(503).message("503 Service Unavailable").body(ResponseBody.create(MediaType.parse("application/json; charset=utf-8"), "{}")).protocol(okhttp3.Protocol.HTTP_1_1).request(request).build();
+            Response response = chain.proceed(request);
             int retryCount = 0;
-            Logger logger = Logger.getLogger(RetryInterceptor.class.getName());
             while (!response.isSuccessful() && retryCount < MAX_RETRY_COUNT && Arrays.asList(retryHttpStatus).contains(response.code())) {
                 retryCount++;
-                logger.info("Retry count: " + retryCount);
     
                 response.close();
                 try {
@@ -137,8 +131,7 @@ public class SlackOperatorFactory
                     e.printStackTrace();
                 }
                 // retry request
-                // response = chain.proceed(request);
-                response = new Response.Builder().code(503).message("503 Service Unavailable").body(ResponseBody.create(MediaType.parse("application/json; charset=utf-8"), "{}")).protocol(okhttp3.Protocol.HTTP_1_1).request(request).build();
+                response = chain.proceed(request);
             }
             return response;
         }
